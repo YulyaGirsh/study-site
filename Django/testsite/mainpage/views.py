@@ -26,3 +26,6 @@ def views_places(request, places_id):
 
 def test(request):
     return HttpResponse('<h2>Тестовая страница</h2>')
+
+def get_contact(request):
+    return render(request, 'mainpage/contact.html')
