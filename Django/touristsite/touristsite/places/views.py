@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Places, Categories
+from django.template import loader
 
 
 def index(request):
@@ -14,3 +15,7 @@ def get_category(request, category_id):
     categories = Categories.objects.all()
     category = Categories.objects.get(pk=category_id)
     return render(request,  'places/category.html', {'places': places, 'category': category, 'categories': categories})
+
+
+def contact(request):
+    return render(request, 'places/contact.html')
