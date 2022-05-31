@@ -5,5 +5,4 @@ from .models import Places
 
 def index(request):
     places = Places.objects.all()
-    return HttpResponse('Hello')
-    # return render(request, 'places.index', {'places':places, 'title': 'Список направлений'})
+    return render(request, 'places/index.html', {'places': places, 'title': 'Список направлений'})
