@@ -45,12 +45,19 @@
           Категория: {{item.category}}
         </div>
         <div class="card-body">
-          <h5 class="card-title">{{item.title}}</h5>
-          <p class="card-text">{{item.content}}</p>
-          <a href="#" class="btn btn-primary">Read more...</a>
+            <div class="media">
+              {% if item.photo %}
+              <img src = "{{item.photo.url}}" alt="" width="300 class ="mr-3">
+              {% endif %}
+              <div class="media-body">
+                </div>
+                  <h5 class="card-title">{{item.title}}</h5>
+                  <p class="card-text">{{item.content}}</p>
+                  <a href="#" class="btn btn-primary">Read more...</a>
+              </div>
           </div>
-          <div class ="card-footer text-muted">
-            {{item.updated_at}}
+        <div class="card-footer text-muted">
+          {{item.updated_at}}
         </div>
       </div>
     {% endfor %}
