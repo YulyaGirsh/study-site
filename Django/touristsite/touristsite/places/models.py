@@ -8,4 +8,13 @@ class Places(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
     photo = models.ImageField(upload_to='photos/%Y/%m/%d/', verbose_name='Фото', blank=True)
     is_published = models.BooleanField(default=True, verbose_name='Опубликовано')
+
     # category = models.ForeignKey('Categories', on_delete=models.PROTECT, null=True, verbose_name='Тип локации')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Место'
+        verbose_name_plural = 'Места'
+        ordering = ['-creates_at', 'title']
