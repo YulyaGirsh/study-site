@@ -31,13 +31,23 @@
         </div>
     </div>
 </nav>
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title">Контакты</h5>
-    <p class="card-text">Наш офис находится в ТРЦ "Планета", ш. Космонавтов, 162б, Пермь, Пермский край </p>
-    <p class="card-text"><small class="text-muted">Конктактный номер: 8 (342) 256-56-56</small></p>
+{% for item in sales %}
+<div class="mt-5">
+<div class="card mb-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{item.photo.url}}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{item.title}}</h5>
+        <p class="card-text">{{item.content}}</p>
+        <p class="card-text"><small class="text-muted">Акция доступна с {{ item.updated_at}}</small></p>
+      </div>
+    </div>
   </div>
-  <img src="/media/photos/2022/05/31/123.jpg" width="300" class="mr-3"  alt="..." >
 </div>
+</div>
+{% endfor %}
 </body>
 </html>

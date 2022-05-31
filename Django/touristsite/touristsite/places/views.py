@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Places, Categories
+from .models import Places, Categories, Sales
 from django.template import loader
 
 
@@ -19,3 +19,8 @@ def get_category(request, category_id):
 
 def contact(request):
     return render(request, 'places/contact.html')
+
+
+def sales(request):
+    sales = Sales.objects.all()
+    return render(request, 'places/sales.html', {'sales': sales})
