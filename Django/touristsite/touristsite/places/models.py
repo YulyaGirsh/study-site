@@ -11,6 +11,7 @@ class Places(models.Model):
     category = models.ForeignKey('Categories', on_delete=models.PROTECT, null=True, verbose_name='Тип локации')
     sale = models.ManyToManyField('Sales', null=True, verbose_name='Акция', blank=True)
 
+
     def __str__(self):
         return self.title
 
@@ -33,7 +34,15 @@ class Categories(models.Model):
 
 
 class Sales(models.Model):
-    title = models.CharField(max_length=150, verbose_name='Акция', db_index=True)
+    FAMILY = 'Семейный'
+    FRIEND = 'Приведи друга'
+    TEACHER = 'Учитель'
+    CURRENCY_CHOICES = [
+        (FAMILY, 'Семейный'),
+        (FRIEND,'Приведи друга'),
+        (TEACHER, 'Учитель')
+    ]
+    title = models.CharField(max_length=150, verbose_name='Акция', db_index=True, choices=CURRENCY_CHOICES)
     content = models.TextField(blank=True, verbose_name='Текст')
     photo = models.ImageField(upload_to='photos/%Y/%m/%d/', verbose_name='Фото', blank=True)
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
