@@ -24,3 +24,8 @@ def contact(request):
 def sales(request):
     sales = Sales.objects.all()
     return render(request, 'places/sales.html', {'sales': sales})
+
+
+def prices(request):
+    places = Places.objects.all()
+    return render(request, 'places/prices.html', {'places': places})
