@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>{% block title%} {% endblock %}</title>
+</head>
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">Направления</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'prices' %}">Купить тур</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact' %}">Контакты</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'sales' %}">Акции</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% block content%}
+
+<h1>Добавить отзыв</h1>
+<form action="{% url 'add_review' %}" method="post">
+    <div class="mb-3">
+        {% csrf_token %}
+        {{ form.as_p }}
+<!--        {{ form.non_field.errors }}-->
+<!--        <div class="form-group">-->
+<!--            <label for="{{ form.title.id_for_label }}" class="form-label">Краткое описание отзыва</label>-->
+<!--            {{ form.title }}-->
+<!--            <div class="invalid-feedback">-->
+<!--                {{form.title.errors}}-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="{{ form.content.id_for_label }}" class="form-label">Текст отзыва</label>-->
+<!--            {{ form.content }}-->
+<!--            <div class="invalid-feedback">-->
+<!--                {{form.content.errors}}-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="{{ form.is_published.id_for_label }}" class="form-label">Опубликовано</label>-->
+<!--            {{ form.is_published }}-->
+<!--            <div class="invalid-feedback">-->
+<!--                {{form.is_published.errors}}-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--            <label for="{{ form.category.id_for_label }}" class="form-label">Выберите, в каком направлении вы совершали поездку</label>-->
+<!--            {{ form.category }}-->
+<!--            <div class="invalid-feedback">-->
+<!--                {{form.category.errors}}-->
+<!--            </div>-->
+<!--        </div>-->
+        <button type="submit" class="btn btn-primary btn-block">Добавить отзыв</button>
+    </div>
+</form>
+{% endblock %}
