@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Places, Categories, Sales
+from .models import Places, Categories, Sales, Review
 
 
 # Register your models here.
@@ -23,6 +23,13 @@ class SalesAdmin(admin.ModelAdmin):
     search_fields = ('title',)
 
 
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title')
+    list_display_links = ('id', 'title')
+    search_fields = ('title',)
+
+
 admin.site.register(Places, PlacesAdmin)
 admin.site.register(Categories, CategoriesAdmin)
 admin.site.register(Sales, SalesAdmin)
+admin.site.register(Review, ReviewAdmin)

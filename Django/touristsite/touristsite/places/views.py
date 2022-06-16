@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView
-from .models import Places, Categories, Sales
+from .models import Places, Categories, Sales, Review
 from .forms import ReviewForm
 
 
@@ -43,7 +43,8 @@ def add_review(request):
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data)
+            # print(form.cleaned_data)
+            Review.objects.create(**form.cleaned_data)
     else:
         form = ReviewForm()
-        return render(request, 'places/add_review.html', {'form': form})
+    return render(request, 'places/add_review.html', {'form': form})
