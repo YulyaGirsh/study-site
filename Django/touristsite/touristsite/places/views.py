@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_list_or_404, redirect
 from django.views.generic import ListView
 from .models import Places, Categories, Sales, Review
-from .forms import ReviewForm
+from .forms import ReviewForm2
 
 
 class HomePlaces(ListView):
@@ -41,10 +41,13 @@ def prices(request):
 
 def add_review(request):
     if request.method == 'POST':
-        form = ReviewForm(request.POST)
+        form = ReviewForm2(request.POST)
         if form.is_valid():
             # print(form.cleaned_data)
-            Review.objects.create(**form.cleaned_data)
+            # Review.objects.create(**form.cleaned_data)
+            reviews = form.save()
+            return redirect('home')
+
     else:
-        form = ReviewForm()
+        form = ReviewForm2()
     return render(request, 'places/add_review.html', {'form': form})
