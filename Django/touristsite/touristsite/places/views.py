@@ -44,8 +44,8 @@ def add_review(request):
         form = ReviewForm2(request.POST)
         if form.is_valid():
             # print(form.cleaned_data)
-            # Review.objects.create(**form.cleaned_data)
-            reviews = form.save()
+            Review.objects.create(**form.cleaned_data)
+            # reviews = form.save()
             return redirect('home')
 
     else:
