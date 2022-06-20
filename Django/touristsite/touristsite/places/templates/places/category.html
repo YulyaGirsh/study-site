@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
-
+{% block title %}
+{{ title }}
+{% endblock %}
 {% block sidebar%}
 <div class='col-md-4'>
             <div class="list-group">
@@ -25,7 +27,7 @@
                         </div>
                         <h5 class="card-title">{{item.title}}</h5>
                         <p class="card-text">{{item.content|truncatechars:250}}</p>
-                        <a href="#" class="btn btn-primary">Read more...</a>
+                        <a href="{% url 'view_place' item.pk %}" class="btn btn-primary">Read more...</a>
                     </div>
 
                     <div class="card-footer text-muted">

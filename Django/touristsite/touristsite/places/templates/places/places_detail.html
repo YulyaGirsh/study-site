@@ -13,10 +13,9 @@
 {% endblock %}
 {% block content%}
 <div class='col-md-8'>
-            {% for item in places %}
             <div class="card mb-3">
                 <div class="card-header">
-                    Категория: {{item.category}}
+                    Категория: {{places_item.category}}
                 </div>
                 <div class="card-body">
                     <div class="media">
@@ -26,8 +25,7 @@
                         <div class="media-body">
                         </div>
                         <h5 class="card-title">{{item.title}}</h5>
-                        <p class="card-text">{{item.content|truncatechars:250}}</p>
-                        <a href="{% url 'view_place' item.pk %}" class="btn btn-primary">Read more...</a>
+                        <p class="card-text">{{item.content}}</p>
                     </div>
 
                     <div class="card-footer text-muted">
@@ -40,6 +38,5 @@
                     {% endif %}
                 </div>
             </div>
-            {% endfor %}
         </div>
 {% endblock %}
