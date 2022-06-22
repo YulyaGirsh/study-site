@@ -10,6 +10,7 @@ class Places(models.Model):
     is_published = models.BooleanField(default=True, verbose_name='Опубликовано')
     category = models.ForeignKey('Categories', on_delete=models.PROTECT, null=True, verbose_name='Тип локации')
     sale = models.ManyToManyField('Sales', null=True, verbose_name='Акция', blank=True)
+    views = models.IntegerField(default=0)
 
 
 
