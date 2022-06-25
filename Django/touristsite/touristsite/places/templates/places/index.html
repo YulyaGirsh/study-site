@@ -6,7 +6,7 @@
 <div class='col-md-4'>
     <div class="list-group">
         {% for itemcat in category %}
-        <a href="{% url 'category' itemcat.pk %} " class="list-group-item list-group-item-action">{{itemcat.title}}</a>
+        <a href="{% url 'category' itemcat.pk %} " class="list-group-item list-group-item-action">{{itemcat.title}}  <span class="badge bg-secondary">{{itemcat.cnt}}</span></a>
         {% endfor%}
     </div>
 </div>

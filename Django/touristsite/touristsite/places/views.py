@@ -2,13 +2,14 @@ from django.shortcuts import render, get_list_or_404, redirect
 from django.views.generic import ListView, DetailView
 from .models import Places, Categories, Sales, Review
 from .forms import ReviewForm2
+from django.db.models import Count
 
 
 class HomePlaces(ListView):
     model = Places
     template_name = 'places/index.html'
     context_object_name = 'places'
-    categories = Categories.objects.all()
+    categories = Categories.objects.annotate(cnt=Count('places'))
     extra_context = {'title': 'Главная', 'category': categories}
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -17,7 +18,7 @@ class HomePlaces(ListView):
         return context
 
     def get_queryset(self):
-        return Places.objects.filter(is_published=True)
+        return Places.objects.filter(is_published=True).select_related('category')
 
 
 # def index(request):
@@ -31,7 +32,7 @@ class PlacesByCategory(ListView):
     model = Places
     template_name = 'places/category.html'
     context_object_name = 'places'
-    categories = Categories.objects.all()
+    categories = Categories.objects.annotate(cnt=Count('places'))
     extra_context = {'category': categories, 'categories': categories}
     allow_empty = False
 
@@ -41,7 +42,7 @@ class PlacesByCategory(ListView):
         return context
 
     def get_queryset(self):
-        return Places.objects.filter(category_id=self.kwargs['category_id'], is_published=True)
+        return Places.objects.filter(category_id=self.kwargs['category_id'], is_published=True).select_related('category')
 
 
 class ViewPlace(DetailView):
