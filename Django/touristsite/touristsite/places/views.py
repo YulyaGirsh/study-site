@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView
 from .models import Places, Categories, Sales, Review
 from .forms import ReviewForm2
 from django.db.models import Count
-
+from django.core.paginator import Paginator
 
 class HomePlaces(ListView):
     model = Places
@@ -11,6 +11,7 @@ class HomePlaces(ListView):
     context_object_name = 'places'
     categories = Categories.objects.annotate(cnt=Count('places'))
     extra_context = {'title': 'Главная', 'category': categories}
+    paginate_by = 4
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -21,11 +22,13 @@ class HomePlaces(ListView):
         return Places.objects.filter(is_published=True).select_related('category')
 
 
-# def index(request):
-#     places = Places.objects.all()
-#     categories = Categories.objects.all()
-#     return render(request, 'places/index.html',
-#                   {'places': places, 'title': 'Список направлений', 'category': categories})
+def test(request):
+    tests = ['123', '456', '789', '101112', 'yulits', 'dima', 'lena', 'kirill', 'iliya']
+    paginator = Paginator(tests, 2)
+    page_num = request.GET.get('page', 1)
+    page_objects = paginator.get_page(page_num)
+    return render(request, 'places/test.html',
+                  {'page_obj': page_objects, 'title': 'Tecтовая страница пагинации'})
 
 
 class PlacesByCategory(ListView):
@@ -35,6 +38,7 @@ class PlacesByCategory(ListView):
     categories = Categories.objects.annotate(cnt=Count('places'))
     extra_context = {'category': categories, 'categories': categories}
     allow_empty = False
+    paginate_by = 4
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)

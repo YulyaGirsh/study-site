@@ -1,5 +1,5 @@
 from django import template
-
+from django.db.models import Count, F
 from mainpage.models import Categories
 
 register = template.Library()
@@ -12,5 +12,5 @@ def get_categories():
 
 @register.inclusion_tag('mainpage/list_categories.html')
 def show_categories(arg1='Hello', arg2='world'):
-    categories = Categories.objects.all()
+    categories = Categories.objects.annotate(cnt=Count('places', filter=F('places__is_published'))).filter(cnt__gt=0)
     return {'categories': categories}
