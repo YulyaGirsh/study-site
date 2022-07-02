@@ -12,4 +12,6 @@ urlpatterns = [
     path('prices/', prices, name='prices'),
     path('add_review/', add_review, name='add_review'),
     path('test/', test, name='test'),
+    path('register/', register, name='register'),
+    path('login/', login, name='login'),
 ]

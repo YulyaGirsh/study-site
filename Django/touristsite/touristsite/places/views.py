@@ -1,9 +1,30 @@
 from django.shortcuts import render, get_list_or_404, redirect
 from django.views.generic import ListView, DetailView
 from .models import Places, Categories, Sales, Review
-from .forms import ReviewForm2
+from .forms import ReviewForm2, UserRegisterForm
 from django.db.models import Count
 from django.core.paginator import Paginator
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Вы успешно зарегестрировались')
+            return redirect('login')
+        else:
+            messages.error(request, 'Ошибка регистрации')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'places/register.html', {'form': form})
+
+
+def login(request):
+    return render(request, 'places/login.html')
+
 
 class HomePlaces(ListView):
     model = Places
@@ -46,7 +67,8 @@ class PlacesByCategory(ListView):
         return context
 
     def get_queryset(self):
-        return Places.objects.filter(category_id=self.kwargs['category_id'], is_published=True).select_related('category')
+        return Places.objects.filter(category_id=self.kwargs['category_id'], is_published=True).select_related(
+            'category')
 
 
 class ViewPlace(DetailView):
