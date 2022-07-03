@@ -1,11 +1,12 @@
 from django.shortcuts import render, get_list_or_404, redirect
 from django.views.generic import ListView, DetailView
 from .models import Places, Categories, Sales, Review
-from .forms import ReviewForm2, UserRegisterForm
+from .forms import ReviewForm2, UserRegisterForm, UserLoginForm
 from django.db.models import Count
 from django.core.paginator import Paginator
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, logout
 from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
 
 
 def register(request):
@@ -22,8 +23,21 @@ def register(request):
     return render(request, 'places/register.html', {'form': form})
 
 
-def login(request):
-    return render(request, 'places/login.html')
+def user_login(request):
+    if request.method == 'POST':
+        form = UserLoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserLoginForm()
+    return render(request, 'places/login.html', {'form': form})
+
+
+def logoutuser(request):
+    logout(request)
+    return redirect('login')
 
 
 class HomePlaces(ListView):

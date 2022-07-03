@@ -3,12 +3,10 @@
     <title>{% block title%}  Авторизация {% endblock %}</title>
 {% block content%}
 
-<h1>Авторизация</h1>
-<form action="{% url 'add_review' %}" method="post">
-    <div class="mb-3">
+<h1>Войти в аккаунт</h1>
+<form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-primary btn-block">Добавить отзыв</button>
-    </div>
+        <button type="submit" class="btn btn-primary btn-block">Войти</button>
 </form>
 {% endblock %}
